@@ -44,7 +44,9 @@ In ComfyUI:
 
  ![ComfyUI Node](images/Example2.png)   
 2. example explanation:
-    - `1`: NO Swap Width_Height, however 1MP and factor32 is on. Width 1504 / 32 = 47, Height 2720 / 32 = 85 >> ratio (w/h 0.552) scaled ratio 736 / 1344 = 0.547 _Not perfect but it respects the 1MP Limit with the 32px rule._
+    - `1`: NO Swap Width_Height, however 1MP and factor32 is on. <br>
+    Width 1504 / 32 = 47, Height 2720 / 32 = 85 >> ratio (w/h 0.552) scaled ratio 736 / 1344 = 0.547<br>
+     _Not perfect but it respects the 1MP Limit with the 32px rule._
   
 ---
 
