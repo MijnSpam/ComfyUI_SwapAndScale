@@ -1,4 +1,3 @@
-
 # wildcard trick is taken from pythongossss's
 class AnyType(str):
     def __ne__(self, __value: object) -> bool:
@@ -11,59 +10,63 @@ class SwapAndScale:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "IN_Height": ("INT", ),
-                "IN_Width": ("INT", ),
+                "IN_HEIGHT": ("INT", ),
+                "IN_WIDTH": ("INT", ),
                 "Swap_Width_Height": ("BOOLEAN", {"default": False}),
                 "factor_32px": ("BOOLEAN", {"default": True}),
                 "Limit_1MP": ("BOOLEAN", {"default": True})
             }
         }
+
+    @staticmethod
     def adjust_x32(value):
         """Lower value to closest number in factor of 32."""
         return value if value % 32 == 0 else value - (value % 32)
 
-    def scale_values(IN_Height, IN_Width, max_product):
-        """Scale IN_Height and IN_Width proportional"""
-        factor = (max_product / (IN_Height * IN_Width)) ** 0.5
-        new_h = int(IN_Height * factor)
-        new_b = int(IN_Width * factor)
+    def scale_values(self, IN_HEIGHT, IN_WIDTH, max_product):
+        """Scale IN_HEIGHT and IN_WIDTH proportionally while keeping them multiples of 32."""
+        factor = (max_product / (IN_HEIGHT * IN_WIDTH)) ** 0.5
+        new_h = int(IN_HEIGHT * factor)
+        new_b = int(IN_WIDTH * factor)
 
-        return adjust_x32(new_h), adjust_x32(new_b)
+        return self.adjust_x32(new_h), self.adjust_x32(new_b)
 
-    def process_inputs(IN_Height, IN_Width, IN_swap, factor_32px, Limit_1MP):
-        """check inputs and do processing"""
+    def process_inputs(self, IN_HEIGHT, IN_WIDTH, IN_swap, factor_32px, Limit_1MP):
+        """Processes inputs according to the set rules."""
     
-        # Step 1: adjust to 32px format if selected
+        # Step 1: Adjust to 32px format if selected
         if factor_32px:
-            IN_Height = adjust_x32(IN_Height)
-            IN_Width = adjust_x32(IN_Width)
+            IN_HEIGHT = self.adjust_x32(IN_HEIGHT)
+            IN_WIDTH = self.adjust_x32(IN_WIDTH)
 
-        # Step 2: Check if 1MP is set and adjust
-        if Limit_1MP and (IN_Height * IN_Width > 1024000):
-            IN_Height, IN_Width = scale_values(IN_Height, IN_Width, 1024000)
+        # Step 2: Check if product exceeds 1MP and adjust
+        if Limit_1MP and (IN_HEIGHT * IN_WIDTH > 1024000):
+            IN_HEIGHT, IN_WIDTH = self.scale_values(IN_HEIGHT, IN_WIDTH, 1024000)
 
-        # Step 3: Swap IN_Height and IN_Width if selected
+        # Step 3: Swap IN_HEIGHT and IN_WIDTH if selected
         if IN_swap:
-            IN_Height, IN_Width = IN_Width, IN_Height
+            IN_HEIGHT, IN_WIDTH = IN_WIDTH, IN_HEIGHT
 
-        return IN_Height, IN_Width
+        return IN_HEIGHT, IN_WIDTH
 
-    RETURN_TYPES = ("INT",)
+    RETURN_TYPES = ("INT", "INT",)
+    RETURN_NAMES = ("out_height", "out_width")
     OUTPUT_NODE = True
     CATEGORY = "Image"
     FUNCTION = "swap_and_scale"
 
     def swap_and_scale(
         self,
-        IN_Height,
-        IN_Width,
-        Swap_Width_Heightt:False,
-        factor_32px:True,
-        Limit_1MP:True,
+        IN_HEIGHT,
+        IN_WIDTH,
+        Swap_Width_Height,
+        factor_32px,
+        Limit_1MP,
     ):
-        process_inputs(IN_Height, IN_Width, IN_swap, factor_32px, Limit_1MP)
-
-        return ("Uploading Completed",)
+        """Runs the processing function and returns the updated values."""
+        OUT_HEIGHT, OUT_WIDTH = self.process_inputs(IN_HEIGHT, IN_WIDTH, Swap_Width_Height, factor_32px, Limit_1MP)
+        
+        return OUT_HEIGHT, OUT_WIDTH
 
 
 NODE_CLASS_MAPPINGS = {
@@ -71,5 +74,5 @@ NODE_CLASS_MAPPINGS = {
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "SwapAndScale": "Swap width/height and/ or Scale image",
+    "SwapAndScale": "Swap width/height and/or scale image",
 }
