@@ -4,8 +4,9 @@
 
 ## ✨ Features
 
-- 🔗 Upload a single image (from image sequence) with your pushover notification (optional)
-- 📦 Includes additional message text (prompt for example)
+- 🔗 Swap width with height
+- Limit output widht and height to a total of 1 Megapixel (usefull for certain model)
+- Resize width and height to factors of 32 which is usefull for new images, not so for existing.
 
 ---
 
