@@ -42,12 +42,12 @@ In ComfyUI:
     - `2`: example input image had dimensions 1344x752 >> 752 /32 = 23.5 and so with the factor_32px it's resize to 736.
     - `3`: Total pixels (W*H) is below 1024000 px so no scaling done
 
- ![ComfyUI Node](images/Example2.png)   
+ ![ComfyUI Node](images/Example2.png)
 2. example explanation:
     - `1`: NO Swap Width_Height, however 1MP and factor32 is on. <br>
     Width 1504 / 32 = 47, Height 2720 / 32 = 85 >> ratio (w/h 0.552) scaled ratio 736 / 1344 = 0.547<br>
      _Not perfect but it respects the 1MP Limit with the 32px rule._
-  
+
 ---
 
 
