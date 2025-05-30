@@ -40,8 +40,8 @@ class SwapAndScale:
             IN_WIDTH = self.adjust_x32(IN_WIDTH)
 
         # Step 2: Check if product exceeds 1MP and adjust
-        if Limit_1MP and (IN_HEIGHT * IN_WIDTH > 1024000):
-            IN_HEIGHT, IN_WIDTH = self.scale_values(IN_HEIGHT, IN_WIDTH, 1024000)
+        if Limit_1MP and (IN_HEIGHT * IN_WIDTH > 1048576):
+            IN_HEIGHT, IN_WIDTH = self.scale_values(IN_HEIGHT, IN_WIDTH, 1048576)
 
         # Step 3: Swap IN_HEIGHT and IN_WIDTH if selected
         if IN_swap:
