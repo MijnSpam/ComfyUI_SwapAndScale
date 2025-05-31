@@ -65,4 +65,5 @@ See [LICENSE](./LICENSE) for details.
 
 ## Changelog
 
+1.0.2 Trying to fix update when using comfy custom node manger
 1.0.1 Fixed fault in 1MP resolution, no it actually uses 1024*1024
