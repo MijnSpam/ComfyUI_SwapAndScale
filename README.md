@@ -22,7 +22,7 @@ git clone https://github.com/MijnSpam/ComfyUI_SwapAndScale.git
 2. Install dependencies:
 
 ```
-none
+no dependencies, all build-in python functions.
 ```
 
 3. Restart ComfyUI (or use the **Reload Custom Nodes** button if available).
@@ -62,6 +62,9 @@ Feel free to fork and create a PR.
 
 This project is licensed under the MIT License.  
 See [LICENSE](./LICENSE) for details.
+
+## Other custom nodes (search for "KB comfy" in manager)
+- Upload to Pushover
 
 ## Changelog
 
